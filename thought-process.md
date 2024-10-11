@@ -5,7 +5,7 @@ This document outlines the development process of this Java application that pro
     1. Using ConcurrentHashMap in local(Deprecated)
     2. Using Redis as distributed in-mem cache store.(Deprecated)
     3. Integrated Spring Webflux with Redis(Currently In-Use)
-    4. Using Cassandra inplace of Redis(IN progress)
+    4. Using Cassandra inplace of Redis.
 
 ### Initial setup
 
