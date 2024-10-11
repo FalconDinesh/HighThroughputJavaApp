@@ -19,7 +19,7 @@ This document outlines the development process of this Java application that pro
 
 * In the initial Testing with 200k records the application can able to process almost on an avg of **8~9k requests per second** and quite more latency of **222.7ms**. But the drawback is since the HashMap is in local memory and when the application is deployed at multi-instance level it'll fail to identify duplicate id's. So moved on to next approach.
 
-![Using ConcurrentHashMap](http://url/to/img.png)
+![Using ConcurrentHashMap](https://raw.githubusercontent.com/FalconDinesh/HighThroughputJavaApp/refs/heads/main/benchmark-jmeter/HashMap%20-%20report.png)
 
 
 ### Using Redis Cache
@@ -29,7 +29,7 @@ This document outlines the development process of this Java application that pro
 * The functionality simple includes pushing the id's into a set for the given minute as a key and for each minute getting the count of the elements in it.
 
 * I tested using the same Jmeter with same 200k requests but the throughput decreased significatly to **8~9 requests per second** and also with very low **avg latency of 12ms**. I'm using in a very tradidtional way of programming and synchronous usage of redis and rest api's. So I decided to try something that runs non-blocking and asynchronous way. 
-![Using Redis](http://url/to/img.png)
+![Using Redis](https://raw.githubusercontent.com/FalconDinesh/HighThroughputJavaApp/refs/heads/main/benchmark-jmeter/redis%20-%20benchmark.png)
 
 
 ### Integrating Redis with Spring web Flux
@@ -46,7 +46,7 @@ Made a little changes to the application to make it asynchronous and non-blockin
 
 * by these changes I could able to effectively reduce the latency and throughput of the applicaiton. When tested with the same volume of 200k requests from 1000 clients each sending 200 req/sec, the application was able to process **10~11k requests per second** with low latency(10ms).
 
-![Reactive Programming with Redis](asdfa)
+![Reactive Programming with Redis](https://raw.githubusercontent.com/FalconDinesh/HighThroughputJavaApp/refs/heads/main/benchmark-jmeter/Reactive_redis-benchmark.png)
 
 * I futher dig down and found that the my JVM with web Flux has reached the max concurrent thread pool limit so `reduced the client size to 50 and each of them sending 4000 requests` the latency drop was huge and came down to **3.89ms** and acheiving upto more then **12k req/sec**. So my single personal laptop with 16 gb of memory, 4 cores of processor can able to handle this so the multiple severs with load balancers should handle more I guess.
 
